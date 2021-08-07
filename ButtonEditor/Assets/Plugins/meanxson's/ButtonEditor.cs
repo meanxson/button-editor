@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace Plugins
     [CanEditMultipleObjects]
     public class ButtonEditor : Editor
     {
-    public override void OnInspectorGUI()
+        public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
 
@@ -22,19 +23,25 @@ namespace Plugins
                 {
                     {
                         var attribute = (EditorButtonAttribute) mi.GetCustomAttribute(typeof(EditorButtonAttribute));
-                        var disable = !attribute.ExecuteInEditor && !Application.isPlaying; 
+                        var disable = !attribute.ExecuteInEditor && !Application.isPlaying;
+
+                        if (string.IsNullOrEmpty(attribute.Name)) 
+                            attribute.Name = SplitName(mi.Name);
+
                         EditorGUI.BeginDisabledGroup(disable);
-                        
+
                         if (GUILayout.Button(attribute.Name))
                         {
-                            attribute.Name = string.IsNullOrEmpty(attribute.Name) ? nameof(mi) : attribute.Name; 
                             mi.Invoke(t, null);
                         }
-                        
+
                         EditorGUI.EndDisabledGroup();
                     }
                 }
             }
         }
+
+        private string SplitName(string nameOfMethod) =>
+            Regex.Replace(nameOfMethod, "([A-Z])", " $1", RegexOptions.Compiled).Trim();
     }
 }

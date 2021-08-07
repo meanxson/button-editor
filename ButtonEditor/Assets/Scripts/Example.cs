@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class Example : MonoBehaviour
 {
-   [EditorButton("Name Of Button")]
-   public void Foo()
+   [EditorButton()]
+   public void FooAndMoreFoo()
    {
-      //Do Something...
+      Debug.Log("Hello");
    }
 }

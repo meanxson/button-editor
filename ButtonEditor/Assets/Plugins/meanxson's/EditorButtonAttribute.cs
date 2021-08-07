@@ -23,7 +23,7 @@ namespace Plugins
         /// <param name="name">Button text</param>
         /// <param name="executeInEditor">Should button be enabled in edit mode</param>
         
-        public EditorButtonAttribute(string name, bool executeInEditor = false)
+        public EditorButtonAttribute(string name = "", bool executeInEditor = false)
         {
             Name = name;
             ExecuteInEditor = executeInEditor;
