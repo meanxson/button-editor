@@ -12,3 +12,16 @@ public class Example : MonoBehaviour
    }
 }
 ```
+
+```
+
+public class Example : MonoBehaviour
+{
+   [EditorButton()] // Name will taken from the name of the method
+   public void Foo()
+   {
+      //Do Something...
+   }
+}
+
+```
